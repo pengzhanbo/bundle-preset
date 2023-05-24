@@ -1,0 +1,4 @@
+packages:
+  - packages/vite/*
+  - packages/vue/*
+  - packages/*

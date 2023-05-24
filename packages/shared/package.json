@@ -1,0 +1,20 @@
+{
+  "name": "@bundle-preset/shared",
+  "version": "0.0.0",
+  "scripts": {
+    "build": "tsup"
+  },
+  "tsup": {
+    "entry": [
+      "./src/index.ts"
+    ],
+    "clean": true,
+    "dts": true,
+    "format": [
+      "esm",
+      "cjs"
+    ],
+    "sourcemap": false,
+    "splitting": false
+  }
+}

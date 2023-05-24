@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "moduleResolution": "node",
+    "strict": true,
+    "declaration": true,
+    "noUnusedLocals": true,
+    "esModuleInterop": true,
+    "module": "ESNext",
+    "lib": ["ESNext"],
+    "sourceMap": false,
+    "noEmitOnError": true,
+    "paths": {
+      "@bundle-preset/vite-basic": ["packages/vite/basic/src/index.ts"],
+      "@bundle-preset/vite-vue": ["packages/vite/vue/src/index.ts"],
+      "@bundle-preset/shared": ["packages/shared/src/index.ts"]
+    }
+  },
+  "include": ["./packages/**/src"]
+}
