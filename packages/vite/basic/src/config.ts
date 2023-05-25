@@ -1,10 +1,12 @@
 import path from 'node:path'
-import { isPackageExists } from 'local-pkg'
-import type { UserConfig } from 'vite'
+import { getLocalPackageInfo } from '@bundle-preset/shared'
+import type { ConfigEnv, UserConfig } from 'vite'
 import type { Options } from './types'
 
-export const presetConfig = async (options: Options = {}) => {
+export const presetConfig = async (env: ConfigEnv, options: Options = {}) => {
+  // const isBuild = env.command === 'build'
   const { autoImport = {}, mockDevServerOptions } = options
+  const { hasDependency } = getLocalPackageInfo()
 
   const config: UserConfig = {
     plugins: [],
@@ -19,7 +21,7 @@ export const presetConfig = async (options: Options = {}) => {
     },
   }
 
-  if (isPackageExists('typescript')) {
+  if (hasDependency('typescript')) {
     const { default: tsconfigPaths } = await import('vite-tsconfig-paths')
     config.plugins!.push(tsconfigPaths())
   }
@@ -41,7 +43,7 @@ export const presetConfig = async (options: Options = {}) => {
     config.plugins!.push(mockDevServer(mockDevServerOptions))
   }
 
-  if (isPackageExists('unocss')) {
+  if (hasDependency('unocss')) {
     const { default: unocss } = await import('unocss/vite')
     config.plugins!.push(unocss())
   }
