@@ -1,4 +1,5 @@
 import path from 'node:path'
+import { isPackageExists } from 'local-pkg'
 import type { UserConfig } from 'vite'
 import type { Options } from './types'
 
@@ -18,6 +19,11 @@ export const presetConfig = async (options: Options = {}) => {
     },
   }
 
+  if (isPackageExists('typescript')) {
+    const { default: tsconfigPaths } = await import('vite-tsconfig-paths')
+    config.plugins!.push(tsconfigPaths())
+  }
+
   if (autoImport !== false) {
     const { default: AutoImport } = await import('unplugin-auto-import/vite')
     config.plugins!.push(
@@ -33,6 +39,16 @@ export const presetConfig = async (options: Options = {}) => {
       'vite-plugin-mock-dev-server'
     )
     config.plugins!.push(mockDevServer(mockDevServerOptions))
+  }
+
+  if (isPackageExists('unocss')) {
+    const { default: unocss } = await import('unocss/vite')
+    config.plugins!.push(unocss())
+  }
+
+  if (options.pwaOptions) {
+    const { VitePWA } = await import('vite-plugin-pwa')
+    config.plugins!.push(VitePWA(options.pwaOptions))
   }
 
   return config
