@@ -1,5 +1,4 @@
-import { isArray, unique } from '@bundle-preset/shared'
-import { isPackageExists } from 'local-pkg'
+import { getLocalPackageInfo, isArray, unique } from '@bundle-preset/shared'
 import {
   ElementPlusResolver,
   LayuiVueResolver,
@@ -13,24 +12,27 @@ export const getComponentsOptions = (
   options: Options['components'] = {},
 ): ComponentsOptions | undefined => {
   if (options === false) return undefined
+
+  const { hasDependency } = getLocalPackageInfo()
+
   const resolvers = isArray(options.resolvers)
     ? options.resolvers
     : options.resolvers
     ? [options.resolvers]
     : []
 
-  isPackageExists('naive-ui') && resolvers.push(NaiveUiResolver())
-  isPackageExists('element-plus') &&
+  hasDependency('naive-ui') && resolvers.push(NaiveUiResolver())
+  hasDependency('element-plus') &&
     resolvers.push(
       ElementPlusResolver({
-        importStyle: isPackageExists('sass') ? 'sass' : 'css',
+        importStyle: hasDependency('sass') ? 'sass' : 'css',
       }),
     )
-  isPackageExists('vant') &&
+  hasDependency('vant') &&
     resolvers.push(
-      VantResolver({ importStyle: isPackageExists('less') ? 'less' : 'css' }),
+      VantResolver({ importStyle: hasDependency('less') ? 'less' : 'css' }),
     )
-  isPackageExists('layui-vue') && resolvers.push(LayuiVueResolver())
+  hasDependency('layui-vue') && resolvers.push(LayuiVueResolver())
 
   return {
     extensions: ['vue'],

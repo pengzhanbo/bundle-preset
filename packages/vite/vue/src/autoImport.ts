@@ -1,11 +1,10 @@
 import fs from 'node:fs'
 import path from 'node:path'
-import { isArray, unique } from '@bundle-preset/shared'
+import { getLocalPackageInfo, isArray, unique } from '@bundle-preset/shared'
 import {
   type AutoImportOptions,
   type Options as BasicPresetOptions,
 } from '@bundle-preset/vite-basic'
-import { isPackageExists } from 'local-pkg'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 
 const vueImports: AutoImportOptions['imports'] = [
@@ -22,6 +21,7 @@ export const getAutoImportOptions = (
   autoImport: BasicPresetOptions['autoImport'] = {},
 ): BasicPresetOptions['autoImport'] => {
   if (autoImport === false) return false
+  const { hasDependency } = getLocalPackageInfo()
   const imports = isArray(autoImport.imports)
     ? autoImport.imports
     : autoImport.imports
@@ -31,10 +31,10 @@ export const getAutoImportOptions = (
   imports.push('vue', 'vue/macros')
 
   vueImports.forEach((pkg) => {
-    isPackageExists(pkg as string) && imports.push(pkg)
+    hasDependency(pkg as string) && imports.push(pkg)
   })
 
-  isPackageExists('naive-ui') &&
+  hasDependency('naive-ui') &&
     imports.push({
       'naive-ui': [
         'useDialog',
@@ -50,7 +50,7 @@ export const getAutoImportOptions = (
     ? [autoImport.resolvers]
     : []
 
-  isPackageExists('element-plus') && resolvers.push(ElementPlusResolver())
+  hasDependency('element-plus') && resolvers.push(ElementPlusResolver())
 
   const dirs = [
     'src/store',

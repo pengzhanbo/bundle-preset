@@ -1,23 +1,19 @@
 import basicPreset from '@bundle-preset/vite-basic'
 import vue from '@vitejs/plugin-vue'
 import { mergeConfig } from 'vite'
-import type { Plugin, UserConfig } from 'vite'
+import type { ConfigEnv, Plugin, UserConfig } from 'vite'
 import { getAutoImportOptions } from './autoImport'
 import { getComponentsOptions } from './components'
 import type { Options } from './types'
 
-export const presetConfig = async (options: Options = {}) => {
-  const basic = await basicPreset({
+export const presetConfig = async (env: ConfigEnv, options: Options = {}) => {
+  const isBuild = env.command === 'build'
+
+  const basic = await basicPreset(env, {
     autoImport: getAutoImportOptions(options.autoImport),
   })
   const config: UserConfig = {
-    plugins: [
-      vue({
-        include: [/\.vue$/, /\.vue\?vue/],
-        reactivityTransform: true,
-        ...(options.vue || {}),
-      }),
-    ],
+    plugins: [],
   }
 
   const vuePlugin = vue({
@@ -26,13 +22,13 @@ export const presetConfig = async (options: Options = {}) => {
     ...(options.vue || {}),
   })
 
-  if (options.vueMacros !== false) {
+  if (options.vueMacros) {
     // @ts-expect-error failed to resolve types
     const { default: VueMacros } = await import('unplugin-vue-macros/vite')
     let jsxPlugin: Plugin | undefined
-    if (options.vueJsx !== false) {
+    if (options.vueJsx) {
       const { default: vueJsx } = await import('@vitejs/plugin-vue-jsx')
-      jsxPlugin = vueJsx(options.vueJsx)
+      jsxPlugin = vueJsx(options.vueJsx === true ? undefined : options.vueJsx)
     }
     config.plugins!.push(
       VueMacros({
@@ -45,9 +41,11 @@ export const presetConfig = async (options: Options = {}) => {
     )
   } else {
     config.plugins!.push(vuePlugin)
-    if (options.vueJsx !== false) {
+    if (options.vueJsx) {
       const { default: vueJsx } = await import('@vitejs/plugin-vue-jsx')
-      config.plugins!.push(vueJsx(options.vueJsx))
+      config.plugins!.push(
+        vueJsx(options.vueJsx === true ? undefined : options.vueJsx),
+      )
     }
   }
 
@@ -56,7 +54,7 @@ export const presetConfig = async (options: Options = {}) => {
     config.plugins!.push(Components(getComponentsOptions(options.components)))
   }
 
-  if (options.vueDevtools !== false) {
+  if (options.vueDevtools !== false && !isBuild) {
     const { default: Devtools } = await import('vite-plugin-vue-devtools')
     config.plugins!.push(Devtools())
   }

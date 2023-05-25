@@ -6,9 +6,9 @@ import { type Options as VueMacrosOptions } from 'unplugin-vue-macros'
 
 export interface Options extends BasicPresetOptions {
   vue?: VueOptions
-  vueJsx?: false | VueJsxOptions
+  vueJsx?: true | VueJsxOptions
   components?: false | ComponentsOptions
-  vueMacros?: false | VueMacrosOptions
+  vueMacros?: VueMacrosOptions
   vueDevtools?: false
 }
 
