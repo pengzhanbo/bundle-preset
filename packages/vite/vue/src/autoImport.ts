@@ -1,3 +1,5 @@
+import fs from 'node:fs'
+import path from 'node:path'
 import { isArray, unique } from '@bundle-preset/shared'
 import {
   type AutoImportOptions,
@@ -50,9 +52,16 @@ export const getAutoImportOptions = (
 
   isPackageExists('element-plus') && resolvers.push(ElementPlusResolver())
 
+  const dirs = [
+    'src/store',
+    'src/stores',
+    'src/composables',
+    'src/hooks',
+  ].filter((dir) => fs.existsSync(path.join(process.cwd(), dir)))
+
   const options: BasicPresetOptions['autoImport'] = {
     vueTemplate: true,
-    dirs: ['src/store', 'src/composables', 'src/hooks'],
+    dirs: unique(dirs),
     ...autoImport,
     imports: unique(imports),
     resolvers: unique(resolvers),
