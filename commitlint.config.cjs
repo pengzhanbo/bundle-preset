@@ -5,6 +5,7 @@ const scopes = [
   'vite/vue',
   'vite/react',
   'webpack/vue',
+  'playground',
 ]
 
 /** @type {import('cz-git').UserConfig} */
