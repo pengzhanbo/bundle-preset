@@ -1,11 +1,25 @@
 {
   "name": "@bundle-preset/vite-basic",
   "version": "0.0.0",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.js"
+    }
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsup"
   },
   "dependencies": {
-    "local-pkg": "^0.4.3",
+    "@bundle-preset/shared": "workspace:*",
     "unocss": "^0.52.3",
     "unplugin-auto-import": "^0.16.2",
     "vite-plugin-mock-dev-server": "^1.1.16",

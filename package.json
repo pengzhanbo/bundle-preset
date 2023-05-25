@@ -14,7 +14,7 @@
     "release": "pnpm release:check && pnpm release:version && pnpm release:publish",
     "release:check": "pnpm lint && pnpm build",
     "release:changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
-    "release:publish": "pnpm -r publish --access public",
+    "release:publish": "pnpm -r --filter=!./playground/** run publish --access public",
     "release:version": "bumpp package.json packages/*/package.json --execute=\"pnpm release:changelog\" --commit --all --tag --push"
   },
   "lint-staged": {

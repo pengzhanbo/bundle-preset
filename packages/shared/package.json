@@ -1,6 +1,17 @@
 {
   "name": "@bundle-preset/shared",
   "version": "0.0.0",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.js"
+    }
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "scripts": {
     "build": "tsup"
   },
@@ -16,5 +27,8 @@
     ],
     "sourcemap": false,
     "splitting": false
+  },
+  "dependencies": {
+    "local-pkg": "^0.4.3"
   }
 }

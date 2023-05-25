@@ -1,12 +1,28 @@
 {
   "name": "@bundle-preset/vite-vue",
   "version": "0.0.0",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.js"
+    }
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup"
+  },
   "dependencies": {
     "@bundle-preset/shared": "workspace:*",
     "@bundle-preset/vite-basic": "workspace:*",
     "@vitejs/plugin-vue": "^4.2.3",
     "@vitejs/plugin-vue-jsx": "^3.0.1",
-    "local-pkg": "^0.4.3",
     "unplugin-vue-components": "^0.24.1",
     "unplugin-vue-macros": "^2.2.0",
     "vite-plugin-vue-devtools": "^0.0.20"
@@ -16,5 +32,18 @@
   },
   "peerDependencies": {
     "vite": ">=4.0.0"
+  },
+  "tsup": {
+    "entry": [
+      "./src/index.ts"
+    ],
+    "clean": true,
+    "dts": true,
+    "format": [
+      "esm",
+      "cjs"
+    ],
+    "sourcemap": false,
+    "splitting": false
   }
 }
