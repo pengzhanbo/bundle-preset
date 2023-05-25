@@ -1,9 +1,6 @@
 {
   "name": "@bundle-preset/vite-vue",
   "version": "0.0.0",
-  "devDependencies": {
-    "vite": "^4.3.8"
-  },
   "dependencies": {
     "@bundle-preset/shared": "workspace:*",
     "@bundle-preset/vite-basic": "workspace:*",
@@ -13,6 +10,9 @@
     "unplugin-vue-components": "^0.24.1",
     "unplugin-vue-macros": "^2.2.0",
     "vite-plugin-vue-devtools": "^0.0.20"
+  },
+  "devDependencies": {
+    "vite": "^4.3.8"
   },
   "peerDependencies": {
     "vite": ">=4.0.0"

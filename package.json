@@ -1,17 +1,62 @@
 {
   "name": "@bundle-preset/monorepo",
-  "private": true,
   "version": "1.0.0",
-  "main": "index.js",
+  "private": true,
   "license": "MIT",
-  "prettier":"@pengzhanbo/prettier-config",
+  "author": "pengzhanbo",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "build": "pnpm -r run build",
+    "lint": "eslint .",
+    "preinstall": "npx only-allow pnpm",
+    "prepare": "husky install",
+    "commit": "czg",
+    "release": "pnpm release:check && pnpm release:version && pnpm release:publish",
+    "release:changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
+    "release:publish": "pnpm -r publish --access public",
+    "release:version": "bumpp package.json packages/*/package.json --execute=\"pnpm release:changelog\" --commit --all --tag --push"
+  },
+  "lint-staged": {
+    "*": [
+      "prettier --write  --cache --ignore-unknown"
+    ],
+    "packages/*/src/**/*.ts": [
+      "eslint --cache --fix"
+    ],
+    "package.json": [
+      "eslint --cache --fix"
+    ],
+    "*.md": [
+      "eslint --cache --fix"
+    ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-git"
+    }
+  },
+  "prettier": "@pengzhanbo/prettier-config",
   "devDependencies": {
+    "@commitlint/cli": "^17.6.3",
+    "@commitlint/config-conventional": "^17.6.3",
     "@pengzhanbo/eslint-config": "^0.3.12",
     "@pengzhanbo/prettier-config": "^0.3.12",
     "@types/node": "^20.2.3",
+    "bumpp": "^9.1.0",
+    "conventional-changelog-cli": "^2.2.2",
+    "cz-conventional-changelog": "^3.3.0",
+    "cz-git": "^1.6.1",
+    "czg": "^1.6.1",
     "eslint": "^8.41.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^13.2.2",
     "prettier": "^2.8.8",
     "tsup": "^6.7.0",
     "typescript": "^5.0.4"
+  },
+  "packageManager": "pnpm@8.5.0",
+  "engines": {
+    "node": ">=16.0.0"
   }
 }
