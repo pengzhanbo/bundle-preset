@@ -1,4 +1,11 @@
-const scopes = ['shared', 'unocss', 'vite/vue', 'vite/react', 'webpack/vue']
+const scopes = [
+  'shared',
+  'unocss',
+  'vite/basic',
+  'vite/vue',
+  'vite/react',
+  'webpack/vue',
+]
 
 /** @type {import('cz-git').UserConfig} */
 module.exports = {
