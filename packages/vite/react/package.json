@@ -1,0 +1,48 @@
+{
+  "name": "@bundle-preset/vite-react",
+  "version": "0.0.0",
+  "keywords": [
+    "vite",
+    "config",
+    "preset"
+  ],
+  "homepage": "https://github.com/pengzhanbo/bundle-preset",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pengzhanbo/bundle-preset",
+    "directory": "packages/vite/react"
+  },
+  "license": "MIT",
+  "author": "pengzhanbo <volodymyr@foxmail.com> (https://github.com/pengzhanbo)",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.js"
+    }
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup"
+  },
+  "dependencies": {
+    "@bundle-preset/shared": "workspace:*",
+    "@bundle-preset/vite-basic": "workspace:*",
+    "@vitejs/plugin-react": "^4.0.0"
+  },
+  "devDependencies": {
+    "vite": "^4.3.8"
+  },
+  "peerDependencies": {
+    "vite": ">=4.0.0"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}
