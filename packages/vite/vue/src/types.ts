@@ -12,10 +12,10 @@ export interface Options extends BasicPresetOptions {
   vueDevtools?: false
 }
 
-export type {
-  BasicPresetOptions,
-  VueJsxOptions,
-  VueMacrosOptions,
-  VueOptions,
-  ComponentsOptions,
+export {
+  type BasicPresetOptions,
+  type VueJsxOptions,
+  type VueMacrosOptions,
+  type VueOptions,
+  type ComponentsOptions,
 }

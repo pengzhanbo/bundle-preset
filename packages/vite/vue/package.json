@@ -1,6 +1,19 @@
 {
   "name": "@bundle-preset/vite-vue",
   "version": "0.0.0",
+  "keywords": [
+    "vite",
+    "config",
+    "preset"
+  ],
+  "homepage": "https://github.com/pengzhanbo/bundle-preset",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pengzhanbo/bundle-preset",
+    "directory": "packages/vite/vue"
+  },
+  "license": "MIT",
+  "author": "pengzhanbo <volodymyr@foxmail.com> (https://github.com/pengzhanbo)",
   "type": "module",
   "exports": {
     ".": {
@@ -33,17 +46,7 @@
   "peerDependencies": {
     "vite": ">=4.0.0"
   },
-  "tsup": {
-    "entry": [
-      "./src/index.ts"
-    ],
-    "clean": true,
-    "dts": true,
-    "format": [
-      "esm",
-      "cjs"
-    ],
-    "sourcemap": false,
-    "splitting": false
+  "engines": {
+    "node": ">=16.0.0"
   }
 }
