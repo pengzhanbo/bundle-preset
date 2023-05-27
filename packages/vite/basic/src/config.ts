@@ -1,11 +1,15 @@
 import path from 'node:path'
-import { getLocalPackageInfo } from '@bundle-preset/shared'
-import type { ConfigEnv, UserConfig } from 'vite'
+import {
+  fileExits,
+  getLocalPackageInfo,
+  unocssConfigFiles,
+} from '@bundle-preset/shared'
+import type { ConfigEnv, Plugin, UserConfig } from 'vite'
 import type { Options } from './types'
 
 export const presetConfig = async (env: ConfigEnv, options: Options = {}) => {
-  // const isBuild = env.command === 'build'
-  const { autoImport = {}, mockDevServerOptions } = options
+  const isBuild = env.command === 'build'
+  const { tsconfigPaths, autoImport = {}, mockDevServer, pwa, unoCSS } = options
   const { hasDependency } = getLocalPackageInfo()
 
   const config: UserConfig = {
@@ -21,9 +25,9 @@ export const presetConfig = async (env: ConfigEnv, options: Options = {}) => {
     },
   }
 
-  if (hasDependency('typescript')) {
-    const { default: tsconfigPaths } = await import('vite-tsconfig-paths')
-    config.plugins!.push(tsconfigPaths())
+  if (tsconfigPaths !== false && hasDependency('typescript')) {
+    const { default: TsconfigPaths } = await import('vite-tsconfig-paths')
+    config.plugins!.push(TsconfigPaths(tsconfigPaths))
   }
 
   if (autoImport !== false) {
@@ -36,21 +40,39 @@ export const presetConfig = async (env: ConfigEnv, options: Options = {}) => {
     )
   }
 
-  if (mockDevServerOptions !== false) {
-    const { default: mockDevServer } = await import(
+  if (mockDevServer !== false) {
+    const { default: MockDevServer } = await import(
       'vite-plugin-mock-dev-server'
     )
-    config.plugins!.push(mockDevServer(mockDevServerOptions))
+    config.plugins!.push(MockDevServer(mockDevServer))
   }
 
-  if (hasDependency('unocss')) {
-    const { default: unocss } = await import('unocss/vite')
-    config.plugins!.push(unocss())
+  if (unoCSS !== false && hasDependency('unocss')) {
+    const files = unoCSS?.configFile
+      ? [unoCSS.configFile, ...unocssConfigFiles]
+      : unocssConfigFiles
+    if (fileExits(files)) {
+      const { default: Unocss } = await import('unocss/vite')
+      config.plugins!.push(Unocss(unoCSS))
+    }
   }
 
-  if (options.pwaOptions) {
+  if (pwa) {
     const { VitePWA } = await import('vite-plugin-pwa')
-    config.plugins!.push(VitePWA(options.pwaOptions))
+    config.plugins!.push(VitePWA(options.pwa))
+  }
+
+  if (options.visualizer !== false && isBuild) {
+    const { default: Visualizer } = await import('rollup-plugin-visualizer')
+    config.plugins!.push(
+      Visualizer({
+        filename: './node_modules/.cache/visualizer/stats.html',
+        open: true,
+        gzipSize: true,
+        brotliSize: true,
+        ...options.visualizer,
+      }) as Plugin,
+    )
   }
 
   return config

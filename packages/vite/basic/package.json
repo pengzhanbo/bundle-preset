@@ -1,6 +1,19 @@
 {
   "name": "@bundle-preset/vite-basic",
   "version": "0.0.0",
+  "keywords": [
+    "vite",
+    "config",
+    "preset"
+  ],
+  "homepage": "https://github.com/pengzhanbo/bundle-preset",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pengzhanbo/bundle-preset",
+    "directory": "packages/vite/basic"
+  },
+  "license": "MIT",
+  "author": "pengzhanbo <volodymyr@foxmail.com> (https://github.com/pengzhanbo)",
   "type": "module",
   "exports": {
     ".": {
@@ -20,29 +33,20 @@
   },
   "dependencies": {
     "@bundle-preset/shared": "workspace:*",
-    "unocss": "^0.52.3",
+    "rollup-plugin-visualizer": "^5.9.0",
     "unplugin-auto-import": "^0.16.2",
     "vite-plugin-mock-dev-server": "^1.1.16",
     "vite-plugin-pwa": "^0.15.1",
     "vite-tsconfig-paths": "^4.2.0"
   },
   "devDependencies": {
+    "unocss": "^0.52.3",
     "vite": "^4.3.8"
   },
   "peerDependencies": {
     "vite": ">=4.0.0"
   },
-  "tsup": {
-    "entry": [
-      "./src/index.ts"
-    ],
-    "clean": true,
-    "dts": true,
-    "format": [
-      "esm",
-      "cjs"
-    ],
-    "sourcemap": false,
-    "splitting": false
+  "engines": {
+    "node": ">=16.0.0"
   }
 }
