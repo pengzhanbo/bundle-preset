@@ -2,6 +2,8 @@ const scopes = [
   'shared',
   'unocss',
   'vite/basic',
+  'vite/vanilla',
+  'vite/library',
   'vite/vue',
   'vite/react',
   'webpack/vue',
