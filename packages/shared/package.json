@@ -1,6 +1,19 @@
 {
   "name": "@bundle-preset/shared",
   "version": "0.0.0",
+  "keywords": [
+    "vite",
+    "config",
+    "preset"
+  ],
+  "homepage": "https://github.com/pengzhanbo/bundle-preset",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pengzhanbo/bundle-preset",
+    "directory": "packages/shared"
+  },
+  "license": "MIT",
+  "author": "pengzhanbo <volodymyr@foxmail.com> (https://github.com/pengzhanbo)",
   "type": "module",
   "exports": {
     ".": {
@@ -15,20 +28,10 @@
   "scripts": {
     "build": "tsup"
   },
-  "tsup": {
-    "entry": [
-      "./src/index.ts"
-    ],
-    "clean": true,
-    "dts": true,
-    "format": [
-      "esm",
-      "cjs"
-    ],
-    "sourcemap": false,
-    "splitting": false
-  },
   "dependencies": {
     "local-pkg": "^0.4.3"
+  },
+  "engines": {
+    "node": ">=16.0.0"
   }
 }
