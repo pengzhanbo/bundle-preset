@@ -1,4 +1,4 @@
-# @bundle-preset/vite-basic
+# @bundle-preset/vite-vanilla
 
 vite 基础配置，内置插件：
 
