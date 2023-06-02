@@ -36,7 +36,7 @@
     "@bundle-preset/vite-basic": "workspace:*"
   },
   "devDependencies": {
-    "vite": "^4.3.8"
+    "vite": "^4.3.9"
   },
   "peerDependencies": {
     "vite": ">=4.0.0"
