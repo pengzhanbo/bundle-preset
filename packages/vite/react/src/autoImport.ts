@@ -1,6 +1,6 @@
 import fs from 'node:fs'
 import path from 'node:path'
-import { getLocalPackageInfo, isArray, unique } from '@bundle-preset/shared'
+import { ensureArray, getLocalPackageInfo, unique } from '@bundle-preset/shared'
 import {
   type AutoImportOptions,
   type Options as BasicPresetOptions,
@@ -20,11 +20,7 @@ export const getAutoImportOptions = (
 ) => {
   if (autoImport === false) return false
   const { hasDependency } = getLocalPackageInfo()
-  const imports = isArray(autoImport.imports)
-    ? autoImport.imports
-    : autoImport.imports
-    ? [autoImport.imports]
-    : []
+  const imports = ensureArray(autoImport.imports)
 
   imports.push('react')
 
@@ -32,11 +28,7 @@ export const getAutoImportOptions = (
     hasDependency(pkg as string) && imports.push(pkg)
   })
 
-  const resolvers = isArray(autoImport.resolvers)
-    ? autoImport.resolvers
-    : autoImport.resolvers
-    ? [autoImport.resolvers]
-    : []
+  const resolvers = ensureArray(autoImport.resolvers)
 
   const dirs = ['src/store', 'src/stores', 'src/hooks'].filter((dir) =>
     fs.existsSync(path.join(process.cwd(), dir)),
