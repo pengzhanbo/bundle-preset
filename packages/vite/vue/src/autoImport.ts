@@ -1,6 +1,6 @@
 import fs from 'node:fs'
 import path from 'node:path'
-import { getLocalPackageInfo, isArray, unique } from '@bundle-preset/shared'
+import { ensureArray, getLocalPackageInfo, unique } from '@bundle-preset/shared'
 import {
   type AutoImportOptions,
   type Options as BasicPresetOptions,
@@ -22,11 +22,7 @@ export const getAutoImportOptions = (
 ): BasicPresetOptions['autoImport'] => {
   if (autoImport === false) return false
   const { hasDependency } = getLocalPackageInfo()
-  const imports = isArray(autoImport.imports)
-    ? autoImport.imports
-    : autoImport.imports
-    ? [autoImport.imports]
-    : []
+  const imports = ensureArray(autoImport.imports)
 
   imports.push('vue', 'vue/macros')
 
@@ -44,11 +40,7 @@ export const getAutoImportOptions = (
       ],
     })
 
-  const resolvers = isArray(autoImport.resolvers)
-    ? autoImport.resolvers
-    : autoImport.resolvers
-    ? [autoImport.resolvers]
-    : []
+  const resolvers = ensureArray(autoImport.resolvers)
 
   hasDependency('element-plus') && resolvers.push(ElementPlusResolver())
 

@@ -1,4 +1,4 @@
-import { getLocalPackageInfo, isArray, unique } from '@bundle-preset/shared'
+import { ensureArray, getLocalPackageInfo, unique } from '@bundle-preset/shared'
 import {
   ElementPlusResolver,
   LayuiVueResolver,
@@ -15,11 +15,7 @@ export const getComponentsOptions = (
 
   const { hasDependency } = getLocalPackageInfo()
 
-  const resolvers = isArray(options.resolvers)
-    ? options.resolvers
-    : options.resolvers
-    ? [options.resolvers]
-    : []
+  const resolvers = ensureArray(options.resolvers)
 
   hasDependency('naive-ui') && resolvers.push(NaiveUiResolver())
   hasDependency('element-plus') &&
