@@ -36,12 +36,12 @@
     "@bundle-preset/vite-basic": "workspace:*",
     "@vitejs/plugin-vue": "^4.2.3",
     "@vitejs/plugin-vue-jsx": "^3.0.1",
-    "unplugin-vue-components": "^0.25.0",
-    "unplugin-vue-macros": "^2.2.1",
-    "vite-plugin-vue-devtools": "^0.0.22"
+    "unplugin-vue-components": "^0.25.1",
+    "unplugin-vue-macros": "^2.3.1",
+    "vite-plugin-vue-devtools": "^0.4.14"
   },
   "devDependencies": {
-    "vite": "^4.3.9"
+    "vite": "^4.4.2"
   },
   "peerDependencies": {
     "vite": ">=4.0.0"

@@ -33,15 +33,15 @@
   },
   "dependencies": {
     "@bundle-preset/shared": "workspace:*",
-    "rollup-plugin-visualizer": "^5.9.0",
-    "unplugin-auto-import": "^0.16.4",
-    "vite-plugin-mock-dev-server": "^1.1.16",
-    "vite-plugin-pwa": "^0.16.1",
+    "rollup-plugin-visualizer": "^5.9.2",
+    "unplugin-auto-import": "^0.16.6",
+    "vite-plugin-mock-dev-server": "^1.2.1",
+    "vite-plugin-pwa": "^0.16.4",
     "vite-tsconfig-paths": "^4.2.0"
   },
   "devDependencies": {
-    "unocss": "^0.52.7",
-    "vite": "^4.3.9"
+    "unocss": "^0.53.4",
+    "vite": "^4.4.2"
   },
   "peerDependencies": {
     "vite": ">=4.0.0"
